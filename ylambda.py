@@ -8,8 +8,16 @@ import aiohttp
 import asyncio
 
 import os
+import sys
 
-from fastai.vision import *
+#Import Prxmty Main Function
+sys.path.insert(1, './prxmty')
+from prxmty import prxmty_main
+
+#Import Recycle.ai Main Function
+sys.path.insert(1, './recycleai')
+from recycleai import recycleai_main
+
 
 
 app = Flask(__name__)
@@ -34,13 +42,18 @@ def homepage():
 ############################# PRXMTY ###############################################################
 ####################################################################################################
 
+
 @app.route("/prxmty")
 def prxmtyHomepage():
     return "Welcome to Prxmty"
 
-@app.route("/prxmty/<test_response>")
-def prxmtyTest(test_response):
-    return ({"Prxmty Response": test_response})
+@app.route("/prxmty/test")
+def prxmtyTest():
+
+    #grab popular times response
+    response = prxmty_main()
+
+    return ({"Prxmty Response": response})
 
 ############################## Recylce.ai ##########################################################
 ####################################################################################################
@@ -54,19 +67,15 @@ def recycle_ai():
 @app.route('/recycleai/upload', methods=['POST'])
 def recycle_ai_classify():
 
+    #grab example name field
     name = request.form['name']
     #Grab Image from Post Form
     img = request.files['image']
-    img = open_image(BytesIO(img.read()))
-    #classify Image
-    learner = load_learner(Path("./"))
-    _,_,losses = learner.predict(img)
 
-    return ({
-        "predictions": sorted(
-            zip(learner.data.classes, map(float, losses)),
-            key=lambda p: p[1],
-            reverse=True)})
+    #classify image
+    response = recycleai_main(img)
+
+    return response
 
 
 
