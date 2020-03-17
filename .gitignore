@@ -1,1 +1,2 @@
-ylambdaenv/lib/python3.6/site-packages/torch/lib/
+# C extensions
+*.so
