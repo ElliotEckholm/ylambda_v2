@@ -16,6 +16,7 @@ def grab_popularity_data(place):
 
 
 def prxmty_main():
+    data_output = []
 
     # #Testing live data location
     # live_place_id_safeway = 'ChIJzaT-PnlqjoARmdCe0GlYyho'
@@ -27,11 +28,13 @@ def prxmty_main():
     'ChIJzaT-PnlqjoARmdCe0GlYyho','ChIJD22pcodqjoARovgbcYM2lco','ChIJrTLr-GyuEmsRBfy61i59si0']
 
     # for place in places_list:
-    #     response = populartimes.get_id(google_maps_api_key, place)
-    #     response_array.append(response)
+    #     response = grab_popularity_data(place)
+    #     data_output.append(response)
 
-    pool = Pool(len(places_list))                         # Create a multiprocessing Pool
+    pool = Pool(20)                         # Create a multiprocessing Pool
     data_output = pool.map(grab_popularity_data, places_list)
+    pool.close()
+    pool.join()
 
 
 
