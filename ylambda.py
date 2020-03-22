@@ -10,6 +10,8 @@ import asyncio
 import os
 import sys
 
+
+
 #Import Prxmty Main Function
 sys.path.insert(1, './prxmty')
 from prxmty import prxmty_main
@@ -49,7 +51,6 @@ def prxmtyHomepage():
 
 @app.route("/prxmty/test")
 def prxmtyTest():
-
     #grab popular times response
     response = prxmty_main()
 
