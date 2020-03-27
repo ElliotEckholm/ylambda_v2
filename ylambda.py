@@ -6,6 +6,7 @@ import PIL.Image
 
 import aiohttp
 import asyncio
+import json
 
 import os
 import sys
@@ -49,10 +50,22 @@ def homepage():
 def prxmtyHomepage():
     return "Welcome to Prxmty"
 
-@app.route("/prxmty/test")
-def prxmtyTest():
-    #grab popular times response
-    response = prxmty_main()
+# @app.route("/prxmty/test")
+# def prxmtyTest():
+#     #grab popular times response
+#     response = prxmty_main()
+#
+#     return ({"Prxmty Response": response})
+
+@app.route("/prxmty/rectangle", methods=['POST'])
+def prxmtyRectangle():
+    #grab example name field
+    rectangle = json.loads(request.form['rectangle'])
+
+    pos_1 = rectangle[0]['latitude']
+
+    # #grab popular times response
+    response = prxmty_main(rectangle)
 
     return ({"Prxmty Response": response})
 
