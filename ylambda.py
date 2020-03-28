@@ -59,13 +59,13 @@ def prxmtyHomepage():
 
 @app.route("/prxmty/rectangle", methods=['POST'])
 def prxmtyRectangle():
-    #grab example name field
-    rectangle = json.loads(request.form['rectangle'])
 
-    pos_1 = rectangle[0]['latitude']
+    #grab southwest_corner and northeast_corner fields
+    southwest_corner = json.loads(request.form['southwest_corner'])
+    northeast_corner = json.loads(request.form['northeast_corner'])
 
     # #grab popular times response
-    response = prxmty_main(rectangle)
+    response = prxmty_main(southwest_corner,northeast_corner)
 
     return ({"Prxmty Response": response})
 
