@@ -530,6 +530,7 @@ def run(_params):
 
     logging.info("{} places to process...".format(len(g_places)))
     print("{} places to process...".format(len(g_places)))
+    print(g_places)
 
     # threading for detail search and popular times
     # pool = Pool(len(g_places))                         # Create a multiprocessing Pool

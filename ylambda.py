@@ -28,7 +28,12 @@ app = Flask(__name__)
 
 ##################### Loading Changes ##############################################################
 ####################################################################################################
-#to restart after changes
+
+### Run Development Server
+# source ylambdaenv/bin/activate
+# python3 ylambda.py
+
+### Restart Live Server after changes
 # sudo service nginx restart
 # sudo service ylambda restart
 #to live reload from debugging to production place this in ylambda.ini
@@ -60,12 +65,15 @@ def prxmtyHomepage():
 @app.route("/prxmty/rectangle", methods=['POST'])
 def prxmtyRectangle():
 
+    #grab business type to filter
+    business_type = json.loads(request.form['business_type'])
+
     #grab southwest_corner and northeast_corner fields
     southwest_corner = json.loads(request.form['southwest_corner'])
     northeast_corner = json.loads(request.form['northeast_corner'])
 
     # #grab popular times response
-    response = prxmty_main(southwest_corner,northeast_corner)
+    response = prxmty_main(southwest_corner,northeast_corner,business_type)
 
     return ({"Prxmty Response": response})
 
